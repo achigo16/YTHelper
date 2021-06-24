@@ -4,22 +4,24 @@
 	"description": "Helper to get information about videos from youtube",
 	"main": "index.js",
 	"scripts": {
-		"dev": "nodemon index.js",
 		"postinstall": "patch-package",
-		"test": "echo \"Error: no test specified\" && exit 1"
+		"test": "echo \"Error: no test specified\" && exit 1",
+		"start": "NODE_ENV=development ./node_modules/.bin/netlify-lambda serve src",
+		"build": "NODE_ENV=production ./node_modules/.bin/netlify-lambda build src"
 	},
 	"author": "Achigo16",
 	"license": "ISC",
 	"dependencies": {
 		"cors": "^2.8.5",
 		"express": "^4.17.1",
+		"netlify-lambda": "^2.0.10",
+		"serverless-http": "^2.7.0",
 		"ytdl-core": "^4.8.2"
 	},
 	"devDependencies": {
 		"eslint": "^7.29.0",
 		"eslint-config-prettier": "^8.3.0",
 		"eslint-plugin-prettier": "^3.4.0",
-		"nodemon": "^2.0.7",
 		"patch-package": "^6.4.7",
 		"postinstall-postinstall": "^2.1.0",
 		"prettier": "^2.3.1"

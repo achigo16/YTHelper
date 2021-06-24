@@ -1,38 +1,41 @@
 const express = require('express');
+const serverless = require('serverless-http');
 const cors = require('cors');
 const ytdl = require('ytdl-core');
+
 const app = express();
-const PORT = 4000;
+const router = express.Router();
 
 app.use(cors());
 
-app.listen(PORT, () => {
-  console.log(`running at port ${PORT}`);
-});
-
-app.get('/', async (req, res) => {
+router.get('/', async (req, res) => {
   const params = req.query?.params ?? false;
 
   try {
     if (!params) {
-      return res.sendStatus(400);
+      return res.json({ status: 400 });
     }
 
     const { url, api, formats, options = {} } = JSON.parse(params);
 
     if (!api || !ytdl[api]) {
-      return res.sendStatus(400);
+      return res.json({ status: 400 });
     }
 
     if (!ytdl.validateURL(url)) {
       return res.sendStatus(404);
     }
 
-    const respon = await ytdl[api](url || formats, options);
+    const response = await ytdl[api](url || formats, options);
 
-    res.send(respon);
-    res.sendStatus(200);
+    res.json({ status: 200, response  })
   } catch (error) {
     res.send('Err: ' + error);
+    return res.json({ status: 500 });
   }
 });
+
+app.use(`/.netlify/functions/api`, router);
+
+module.exports = app;
+module.exports.handler = serverless(app);
