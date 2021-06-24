@@ -1,40 +1,38 @@
 const express = require('express');
 const cors = require('cors');
 const ytdl = require('ytdl-core');
-const serverless = require('serverless-http');
-
 const app = express();
-const router = express.Router();
+const PORT = 4000;
 
 app.use(cors());
 
-router.get('/', async (req, res) => {
+app.listen(PORT, () => {
+  console.log(`running at port ${PORT}`);
+});
+
+app.get('/', async (req, res) => {
   const params = req.query?.params ?? false;
 
   try {
     if (!params) {
-      return res.json({ httpStatus: 400 })
+      return res.sendStatus(400);
     }
 
     const { url, api, formats, options = {} } = JSON.parse(params);
 
     if (!api || !ytdl[api]) {
-      return res.json({ httpStatus: 400 })
+      return res.sendStatus(400);
     }
 
     if (!ytdl.validateURL(url)) {
-      return res.json({ httpStatus: 404 })
+      return res.sendStatus(404);
     }
 
     const respon = await ytdl[api](url || formats, options);
 
-    res.json({ httpStatus: 200, result: respon });
+    res.send(respon);
+    res.sendStatus(200);
   } catch (error) {
-    return res.json({ httpStatus: 500 })
+    res.send('Err: ' + error);
   }
 });
-
-app.use('/api', router);
-
-module.exports = app;
-module.exports.handler = serverless(app);
