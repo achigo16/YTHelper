@@ -1,6 +1,6 @@
 # YTHelper
 
-Helper to get information about videos from youtube build by [Express JS](https://expressjs.com/) & [https://github.com/fent/node-ytdl-core](https://github.com/blasten/turn.js).
+Helper to get information about videos from youtube build by [Express JS](https://expressjs.com/) & [ytdl-core](https://github.com/blasten/turn.js).
 
 ## Getting Started
 
