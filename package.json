@@ -2,17 +2,20 @@
 	"name": "ythelper",
 	"version": "1.0.0-alpha",
 	"description": "Helper to get information about videos from youtube",
-	"main": "index.js",
 	"scripts": {
-		"dev": "nodemon index.js",
+		"dev": "nodemon ./src/index.js",
 		"postinstall": "patch-package",
-		"test": "echo \"Error: no test specified\" && exit 1"
+		"test": "echo \"Error: no test specified\" && exit 1",
+		"start": "NODE_ENV=development ./node_modules/.bin/netlify-lambda serve src",
+		"build": "NODE_ENV=production ./node_modules/.bin/netlify-lambda build src"
 	},
-	"author": "Achigo16",
+	"author": "achigo16",
 	"license": "ISC",
 	"dependencies": {
 		"cors": "^2.8.5",
 		"express": "^4.17.1",
+		"netlify-lambda": "^2.0.10",
+		"serverless-http": "^2.7.0",
 		"ytdl-core": "^4.8.2"
 	},
 	"devDependencies": {
