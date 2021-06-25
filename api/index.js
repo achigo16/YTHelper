@@ -24,15 +24,9 @@ app.get('/api/:api', async (req, res) => {
   res.setHeader('Content-Type', 'application/json');
 
   const api = req.params?.api ?? false;
-  const params = req.query?.params ?? false;
+  const { url, formats, options = {} } = req.query;
 
   try {
-    if (!params) {
-      return res.sendStatus(400);
-    }
-
-    const { url, formats, options = {} } = JSON.parse(params);
-
     if (!api || !ytdl[api]) {
       return res.sendStatus(400);
     }
