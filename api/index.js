@@ -19,11 +19,32 @@ app.get('/api', (req, res) => {
   res.sendStatus(200);
 });
 
+app.get('/api/get', async (req, res) => {
+  res.setHeader('Content-Type', 'application/json');
+
+  const { url, options } = req.query;
+
+  try {
+    if (!ytdl.validateURL(url) && !formats) {
+      return res.sendStatus(404);
+    }
+
+    const response = await ytdl.getInfo(url, JSON.parse(options));
+    const format = ytdl.chooseFormat(response.formats, JSON.parse(options));
+
+    res.statusCode = 200;
+    res.json(format);
+  } catch (error) {
+    res.statusCode = 500;
+    res.json({ error });
+  }
+});
+
 app.get('/api/:api', async (req, res) => {
   res.setHeader('Content-Type', 'application/json');
 
   const api = req.params?.api ?? false;
-  const { url, formats, options = {} } = req.query;
+  const { url, formats, options } = req.query;
 
   try {
     if (!api || !ytdl[api]) {
@@ -34,7 +55,7 @@ app.get('/api/:api', async (req, res) => {
       return res.sendStatus(404);
     }
 
-    const response = await ytdl[api](url || formats, options);
+    const response = await ytdl[api](url || formats, JSON.parse(options));
 
     res.statusCode = 200;
     res.json(response);
