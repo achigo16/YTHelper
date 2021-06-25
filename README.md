@@ -31,8 +31,8 @@ nodemon index.js
 
 ## Usage
 You can deploy on your server or you can access from https://yt-helper.vercel.app/api/.
-```base
-https://yt-helper.vercel.app/api/getInfo?url=http://www.youtube.com/watch?v=aqz-KE-bpKQ
+```js
+https://yt-helper.vercel.app/api/get?url=http://www.youtube.com/watch?v=aqz-KE-bpKQ
 ```
 Support all API from [ytdl-core](https://github.com/fent/node-ytdl-core).
 

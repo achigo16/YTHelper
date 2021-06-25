@@ -22,7 +22,7 @@ app.get('/api', (req, res) => {
 app.get('/api/get', async (req, res) => {
   res.setHeader('Content-Type', 'application/json');
 
-  const { url, options } = req.query;
+  const { url, options = '{}' } = req.query;
 
   try {
     if (!ytdl.validateURL(url) && !formats) {
@@ -44,7 +44,7 @@ app.get('/api/:api', async (req, res) => {
   res.setHeader('Content-Type', 'application/json');
 
   const api = req.params?.api ?? false;
-  const { url, formats, options } = req.query;
+  const { url, formats, options = '{}' } = req.query;
 
   try {
     if (!api || !ytdl[api]) {
