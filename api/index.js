@@ -11,11 +11,15 @@ app.listen(PORT, () => {
   console.log(`running at port ${PORT}`);
 });
 
+app.get('/', (req, res) => {
+  res.send('Hello World');
+});
+
 app.get('/api', (req, res) => {
   // Caching for vercel
-  res.setHeader('Content-Type', 'text/html')
-  res.setHeader('Cache-Control', 's-max-age=1, stale-while-revalidate')
-})
+  res.setHeader('Content-Type', 'text/html');
+  res.setHeader('Cache-Control', 's-max-age=1, stale-while-revalidate');
+});
 
 app.get('/api/:api', async (req, res) => {
   const api = req.params?.api ?? false;
@@ -45,4 +49,4 @@ app.get('/api/:api', async (req, res) => {
   }
 });
 
-module.exports = app
+module.exports = app;
