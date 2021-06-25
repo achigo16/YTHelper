@@ -1,6 +1,6 @@
 # YTHelper
 
-Helper to get information about videos from youtube build by [Express JS](https://expressjs.com/) & [ytdl-core](https://github.com/blasten/turn.js).
+Helper to get information about videos from youtube build by [Express JS](https://expressjs.com/) & [ytdl-core](https://github.com/fent/node-ytdl-core).
 
 ## Getting Started
 
@@ -28,6 +28,13 @@ or
 ```bash
 nodemon index.js
 ```
+
+## Usage
+You can deploy on your server or you can access from https://yt-helper.vercel.app/api/.
+```base
+https://yt-helper.vercel.app/api/getInfo?url=http://www.youtube.com/watch?v=aqz-KE-bpKQ
+```
+Support all API from [ytdl-core](https://github.com/fent/node-ytdl-core).
 
 ## How to contributing
 For starter, if you contribute on this project, please create a new branch on `git` for seperate
