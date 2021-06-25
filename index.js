@@ -24,7 +24,7 @@ app.get('/', async (req, res) => {
       return res.sendStatus(400);
     }
 
-    if (!ytdl.validateURL(url)) {
+    if (!ytdl.validateURL(url) && !formats) {
       return res.sendStatus(404);
     }
 
