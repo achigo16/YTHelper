@@ -16,8 +16,7 @@ app.get('/api', (req, res) => {
   res.setHeader('Content-Type', 'text/html');
   res.setHeader('Cache-Control', 's-max-age=1, stale-while-revalidate');
 
-  res.statusCode = 200;
-  res.send('Hello World');
+  res.sendStatus(200);
 });
 
 app.get('/api/:api', async (req, res) => {
