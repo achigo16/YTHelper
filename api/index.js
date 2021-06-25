@@ -11,17 +11,18 @@ app.listen(PORT, () => {
   console.log(`running at port ${PORT}`);
 });
 
-app.get('/', (req, res) => {
-  res.send('Hello World');
-});
-
 app.get('/api', (req, res) => {
   // Caching for vercel
   res.setHeader('Content-Type', 'text/html');
   res.setHeader('Cache-Control', 's-max-age=1, stale-while-revalidate');
+
+  res.statusCode = 200;
+  res.send('Hello World');
 });
 
 app.get('/api/:api', async (req, res) => {
+  res.setHeader('Content-Type', 'application/json');
+
   const api = req.params?.api ?? false;
   const params = req.query?.params ?? false;
 
@@ -42,9 +43,10 @@ app.get('/api/:api', async (req, res) => {
 
     const response = await ytdl[api](url || formats, options);
 
+    res.statusCode = 200;
     res.json(response);
   } catch (error) {
-    res.sendStatus(500);
+    res.statusCode = 500;
     res.json({ error });
   }
 });
