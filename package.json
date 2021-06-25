@@ -2,9 +2,9 @@
 	"name": "ythelper",
 	"version": "1.0.0-alpha",
 	"description": "Helper to get information about videos from youtube",
-	"main": "index.js",
+	"main": "./api/index.js",
 	"scripts": {
-		"dev": "nodemon index.js",
+		"dev": "nodemon ./api/index.js",
 		"postinstall": "patch-package",
 		"test": "echo \"Error: no test specified\" && exit 1"
 	},
