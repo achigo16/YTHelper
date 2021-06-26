@@ -29,7 +29,7 @@ app.get('/api/get', async (req, res) => {
       return res.sendStatus(404);
     }
 
-    const response = await ytdl.getInfo(url, JSON.parse(options));
+    const response = await ytdl.getBasicInfo(url, JSON.parse(options));
     const format = ytdl.chooseFormat(response.formats, JSON.parse(options));
 
     res.statusCode = 200;
