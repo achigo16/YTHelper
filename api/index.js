@@ -30,7 +30,10 @@ app.get('/api/get', async (req, res) => {
     }
 
     const response = await ytdl.getInfo(url, JSON.parse(options));
-    const format = ytdl.chooseFormat(response.formats, JSON.parse(options));
+    const format = ytdl.chooseFormat(
+      response.formats.filter(({ container }) => container === 'mp4'),
+      JSON.parse(options)
+    );
 
     const tracks =
       response.player_response.captions.playerCaptionsTracklistRenderer
