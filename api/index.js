@@ -25,15 +25,20 @@ app.get('/api/get', async (req, res) => {
   const { url, options = '{}' } = req.query;
 
   try {
-    if (!ytdl.validateURL(url) && !formats) {
+    if (!ytdl.validateURL(url)) {
       return res.sendStatus(404);
     }
 
-    const response = await ytdl.getBasicInfo(url, JSON.parse(options));
+    const response = await ytdl.getInfo(url, JSON.parse(options));
     const format = ytdl.chooseFormat(response.formats, JSON.parse(options));
 
+    const tracks =
+      response.player_response.captions.playerCaptionsTracklistRenderer
+        .captionTracks;
+    const track = tracks.find((t) => t.languageCode === 'id');
+
     res.statusCode = 200;
-    res.json(format);
+    res.json({ ...(format ?? {}), track });
   } catch (error) {
     res.statusCode = 500;
     res.json({ error });
